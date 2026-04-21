@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard ZAI</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <div id="loading">Loading...</div> <!-- Loading Indicator -->
+    <div id="dashboard">
+        <!-- Dashboard content goes here -->
+    </div>
+    <script>
+        // Example of error handling
+        try {
+            // Code that may throw an error
+        } catch (error) {
+            console.error("An error occurred:", error);
+        }
+
+        // Caching example
+        let cache = {};
+        function fetchData() {
+            if (cache['data']) {
+                return Promise.resolve(cache['data']);
+            }
+            // Fetch data from API and cache it
+        }
+    </script>
+</body>
+</html>
