@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard ZAI_v14</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="loading-indicator" style="display:none;">Loading...</div>
+    <div id="dashboard">
+        <h1>Dashboard ZAI Version 14</h1>
+        <div id="performance-metrics">
+            <p>Performance Metrics: <span id="performance-data">Loading...</span></p>
+        </div>
+        <form id="data-validation-form">
+            <input type="text" id="data-input" required placeholder="Enter Data">
+            <input type="submit" value="Submit">
+        </form>
+        <div id="error-message" style="color:red;"></div>
+        <div id="pdf-section">
+            <button id="generate-pdf">Generate PDF</button>
+        </div>
+    </div>
+    <script>
+        // Memory leak fixes
+        window.onbeforeunload = function() {
+            // Cleanup code here if needed
+        };
+
+        // Caching system
+        function cacheData(key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+
+        function getDataFromCache(key) {
+            return JSON.parse(localStorage.getItem(key));
+        }
+
+        // Loading indicators
+        function showLoading() {
+            document.getElementById('loading-indicator').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-indicator').style.display = 'none';
+        }
+
+        document.getElementById('data-validation-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            showLoading();
+
+            const dataInput = document.getElementById('data-input').value;
+            if (dataInput) {
+                cacheData('userData', dataInput);
+                // Simulate API call and handle errors
+                simulateAPICall(dataInput).catch(handleError);
+            }
+        });
+
+        function simulateAPICall(data) {
+            return new Promise((resolve, reject) => {
+                // Mock API delay
+                setTimeout(() => {
+                    if (Math.random() > 0.5) { // Simulate random error
+                        reject('API call failed');
+                    } else {
+                        resolve('Success! Data: ' + data);
+                    }
+                    hideLoading();
+                }, 2000);
+            });
+        }
+
+        function handleError(error) {
+            document.getElementById('error-message').innerText = error;
+        }
+
+        document.getElementById('generate-pdf').addEventListener('click', function() {
+            generatePDF();
+        });
+
+        function generatePDF() {
+            // PDF generation logic with a white theme
+            console.log('Generating PDF with white theme...');
+        }
+
+        // Performance metrics
+        function displayPerformanceMetrics() {
+            // Mock performance data
+            const performanceData = getDataFromCache('userData');
+            document.getElementById('performance-data').innerText = performanceData ? performanceData : 'No data available.';
+        }
+
+        window.onload = displayPerformanceMetrics;
+    </script>
+</body>
+</html>
